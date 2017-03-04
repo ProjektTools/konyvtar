@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 2017.03.04., 15:15:55
+    Document   : main
+    Created on : 2017.03.04., 19:21:53
     Author     : Ildi
 --%>
 
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Kezdőlap</title>
+        <title>Lista</title>
         <!-- LIBS -->
         <script src="lib/jquery/jquery.min.js"></script>
         <script src="lib/jquery/jquery-ui.min.js"></script>

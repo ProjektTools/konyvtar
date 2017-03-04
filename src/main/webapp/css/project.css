@@ -76,3 +76,8 @@ td, th {
 #main_menu_bar ul li:hover a {
     color: #f49d41 !important;
 }
+
+.tsm_button{
+    background-color: #f5e79e;
+    border: 1px solid #aaa;
+}
