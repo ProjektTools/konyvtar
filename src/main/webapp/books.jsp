@@ -43,7 +43,9 @@
                             <li><a href="books.jsp">Könyvek listázása</a></li>
                         </ul>
                     </div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vestibulum, tellus a suscipit vulputate, est lectus cursus erat, vel molestie tortor felis nec risus. Aliquam urna tortor, suscipit eget justo quis, egestas hendrerit mauris. Mauris a lacus sed nibh mollis mattis sit amet non massa. Curabitur congue lorem vel lorem accumsan pharetra. Ut dictum sodales ipsum, ac efficitur tortor luctus sed. Aenean condimentum risus vitae turpis luctus, a rutrum lectus euismod. Integer feugiat risus eu est scelerisque placerat. Etiam interdum, eros sit amet fermentum sodales, arcu ipsum sagittis tortor, quis pellentesque ex dolor sit amet nibh. Sed porta ligula nec pharetra rutrum. Sed aliquam quis nisl tempus rhoncus. Ut cursus porta erat, et fringilla augue rutrum nec. Vivamus vitae facilisis diam. Nullam nec lobortis enim. Nullam at nisi ut diam eleifend vestibulum malesuada eu nisi. Vestibulum varius lectus nisl, ac efficitur nisl tempor in.
+                    <p>Keresés könyv címére
+                    <p>Keresés könyv szerzőjére
+                    <p>Keresés könyv kategóriájára
                 </div>
             </div>
         </div>
