@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             session.setMaxInactiveInterval(30*60);
             response.sendRedirect("main.jsp");
         } else {
-            response.sendRedirect("index.jsp?status=wrongCredentials");
+            response.sendRedirect("login.jsp?status=wrongCredentials");
         }
     }
 

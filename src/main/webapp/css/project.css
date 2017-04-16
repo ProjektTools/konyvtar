@@ -7,77 +7,53 @@ and open the template in the editor.
     Created on : 2017.03.04., 15:16:48
     Author     : Ildi
 */
+html{
+    background-color: #eeeeee;
+}
 
 body{
-    width: 1024px;
+    width: 1280px;
     margin: 0 auto;
     height: 100%;
+    background-color: #fff;
+    border-color: #999;
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
+
+.terkozos{
+    margin:5px;
+}
+
+.nagyobb{
+    font-size: 14px;
+    text-align: right;
+    padding-top:15px;
+}
+
+.footer{
+    background-color: #008CBA;
+    margin-top: 50px;
+    padding:5px;
+    text-align: center;
+    color: white !important;
 }
 
 h1, h2{
-    color: #f4b042;
+    color: #999;
 }
 
-.textinput{
-    margin-bottom: 20px;
-}
 
 table {
-  border-collapse: collapse;
-  width: 70%;
-  margin-left: 10%;
+    border-collapse: collapse;
+    width: 70%;
+    margin-left: 10%;
 }
 
 td, th {
-  border: 1px solid #999;
-  padding: 0.5rem;
-  text-align: left;
+    border: 1px solid #999;
+    padding: 0.5rem;
+    text-align: left;
 }
 
-#main_menu_bar{
-    height: 40px;
-    background-color: #f49d41;
-    border-radius: 4px 4px 0px 0px;
-    border-bottom: 1px solid #aaa;
-    margin-bottom: 10px;
-}
 
-#main_menu_bar ul{
-    list-style: square;
-    color: white;
-    width: 100%;
-    margin-bottom: 10px;
-    line-height: 40px;
-    font-size: 15px;
-    list-style-type: none;
-    margin-left: 0px;
-    padding-left: 0px;
-}
-
-#main_menu_bar ul li a{
-    width: 200px;
-    height: 40px;
-    color: white;
-    text-decoration: none;
-}
-
-#main_menu_bar ul li {
-    color: white;
-    float: left;
-    width: 20%;
-    padding-left: 10px;
-    text-align: center;
-}
-
-#main_menu_bar ul li:hover {
-    background-color: white;
-}
-
-#main_menu_bar ul li:hover a {
-    color: #f49d41 !important;
-}
-
-.tsm_button{
-    background-color: #f5e79e;
-    border: 1px solid #aaa;
-}

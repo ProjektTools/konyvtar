@@ -9,45 +9,123 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Kezdőlap</title>
-        <!-- LIBS -->
-        <script src="lib/jquery/jquery.min.js"></script>
-        <script src="lib/jquery/jquery-ui.min.js"></script>
-        <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
-        <!-- /LIBS -->
-
-        <!-- SITE -->
-        <script src="js/project.js"></script>
-        <link rel="stylesheet" href="css/project.css">
-        <!-- /SITE -->
+        <title>Könyvek listázása</title>
     </head>
     <body>
-        <h1> KönyvSziget</h1>
-        <div class="panel panel-default">
-            <div class="row" style="margin-bottom: 10px;">
-                <div class="col-md-7">
-                </div>
-                <div class="col-md-5" style="padding-right: 50px; padding-top: 20px;">
-                    <a href="regist.jsp"><input type="submit" value="Regisztráció" style="float: right; margin: 2px;"class="btn btn-warning"></a>
-                    <a href="login.jsp"><input type="submit" value="Bejelentkezés" style="float: right; margin: 2px"class="btn btn-warning"></a>
-                </div>
+        <%@include file="nav.jsp" %>
+    <legend>Keresés</legend>
+            <div class="col-lg-3">
+                <input type="text" class="form-control terkozos" id="searchtitle" placeholder="Cím">
             </div>
-            <div class="panel-body">
-                <div class="col-md-12">
-                    <div id="main_menu_bar">
-                        <ul>
-                            <li><a href="index.jsp">Főoldal</a></li>
-                            <li><a href="info.jsp">Kölcsönzésről</a></li>
-                            <li><a href="books.jsp">Könyvek listázása</a></li>
-                        </ul>
+            <div class="col-lg-3">
+                <input type="text" class="form-control terkozos" id="searchauthor" placeholder="Szerző">
+            </div>
+            <div class="col-lg-3">
+                <select class="form-control terkozos" id="searchcatehory">
+                    <option>-</option>
+                    <option>Gasztronómia</option>
+                    <option>Hobbi, szabadidő</option>
+                    <option>Irodalom</option>
+                    <option>Mese</option>
+                </select>
+            </div>
+        <div align="center"><button type="submit" class="btn btn-primary">Keresés</button></div>
+    
+    <hr>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-basic">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>Gasztronómia</b></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
                     </div>
-                    <p>Keresés könyv címére
-                    <p>Keresés könyv szerzőjére
-                    <p>Keresés könyv kategóriájára
                 </div>
             </div>
         </div>
-    </body>
+        <div class="col-lg-4">
+            <div class="panel panel-basic">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>Hobbi, szabadidő</b></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-basic">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>Irodalom</b></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-basic">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>Mese</b></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">Könyv címe</h4>
+                            <p class="list-group-item-text">tartalomtartalomtartalom.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%@include file="footer.jsp" %>
+</body>
 </html>

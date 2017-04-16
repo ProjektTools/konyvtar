@@ -132,7 +132,8 @@ public class DatabaseHelper {
     }
 
     public static void main(String[] args) throws SQLException {
-        insertUser("ildi", "ildi@ildi.il", "ildi");
+        //insertUser("ildi", "ildi@ildi.il", "ildi");
+        insertUser("admin", "admin@admin.com", "admin");
     }
     
 }
