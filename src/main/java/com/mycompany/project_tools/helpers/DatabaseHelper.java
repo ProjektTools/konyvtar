@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -129,6 +131,46 @@ public class DatabaseHelper {
             }
         }
         return ret;
+    }
+    
+    public static JSONArray getCategories() throws ClassNotFoundException{
+        JSONArray res = new JSONArray();
+        
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            String postgreSql = "SELECT id, name FROM categories;";
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+            
+            rs = postgreStmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+
+                JSONObject sor = new JSONObject();
+                sor.put("id", id);
+                sor.put("name", name);
+                System.out.println(sor);
+                res.put(sor);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            res.put("A szerver nem elérhető.");
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return res;
     }
 
     public static void main(String[] args) throws SQLException {

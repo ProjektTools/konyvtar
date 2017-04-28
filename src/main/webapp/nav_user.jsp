@@ -33,13 +33,13 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.jsp">Főoldal</a></li>
-                        <li><a href="info.jsp">Kölcsönzésről</a></li>
-                        <li><a href="books.jsp">Könyvek listázása</a></li>
-                        <li><a href="borrows.jsp">Kölcsönzések kezelése</a></li>
+                        <li><a href="./index">Főoldal</a></li>
+                        <li><a href="./info">Kölcsönzésről</a></li>
+                        <li><a href="./books">Könyvek listázása</a></li>
+                        <li><a href="./borrows">Kölcsönzések kezelése</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="login.jsp">Kijelentkezés</a></li>
+                        <li><a href="./logout">Kijelentkezés</a></li>
                     </ul>
                 </div>
             </div>

@@ -5,6 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    //allow access only if session exists
+    String username = null;
+    Integer secLvl = null;
+    if (session != null) {
+        username = (String) session.getAttribute("username");
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +20,16 @@
         <title>Kezdőlap</title>
     </head>
     <body>
+        <% if (username == null) { %>
         <%@include file="nav.jsp" %>
+        <% } else { %>
+        <% if (username.equals("admin")) { %>
+        <%@include file="nav_admin.jsp" %>
+        <% } else { %>
+        <%@include file="nav_user.jsp" %>
+        <% } %>
+        <% } %>
+
         <img src="images/home.png" style="width:400px; float:right">
         <h1>Köszöntünk kis világunkban kedves idegen!</h1>
         <p>Ez a webalkalmazás a Projekt Eszközök nevű tárgy beadandó feladataként készült el.
