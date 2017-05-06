@@ -5,14 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    //allow access only if session exists
-    String username = null;
-    Integer secLvl = null;
-    if (session != null) {
-        username = (String) session.getAttribute("username");
-    }
-%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,15 +12,7 @@
         <title>Könyvek listázása</title>
     </head>
     <body>
-        <% if (username == null) { %>
-        <%@include file="nav.jsp" %>
-        <% } else { %>
-        <% if (username.equals("admin")) { %>
-        <%@include file="nav_admin.jsp" %>
-        <% } else { %>
-        <%@include file="nav_user.jsp" %>
-        <% } %>
-        <% }%>
+    <%@include file="nav.jsp" %>
     <legend>Keresés</legend>
     <div class="col-lg-3">
         <input type="text" class="form-control terkozos" id="searchtitle" placeholder="Cím">
@@ -47,10 +31,10 @@
 
     <div class="row">
         <div id="kategorialista">
-            
-        </div>
+
         </div>
     </div>
-    <%@include file="footer.jsp" %>
+</div>
+<%@include file="footer.jsp" %>
 </body>
 </html>

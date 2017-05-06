@@ -38,6 +38,7 @@ public class AjaxServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
+        System.out.println("Servletben vagyunk");
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -45,7 +46,10 @@ public class AjaxServlet extends HttpServlet {
         JSONObject res = new JSONObject();
 
         String cmd = request.getParameter("cmd");
+        String cmd2 = request.getParameter("cmd2");
+        String id = request.getParameter("id");
 
+        System.out.println("PARAMÉTEREK" + cmd + cmd2 + id);
         if (cmd != null) {
             if (cmd.equals("getCategories")) {
                 System.out.println("Kategóriakeresés");
@@ -53,6 +57,21 @@ public class AjaxServlet extends HttpServlet {
                 categories = DatabaseHelper.getCategories();
                 res.put("categories", categories);
                 res.put("error", "0");
+            }
+            if (cmd2 != null) {
+                if (cmd2.equals("getBooks")) {
+                    System.out.println("Könyvkeresés");
+                    JSONArray books;
+                    books = DatabaseHelper.getBooks();
+                    res.put("books", books);
+                }
+            }
+            if (cmd.equals("getBookDetails")) {
+                System.out.println("Könyv adatok keresése");
+                JSONArray book;
+                book = DatabaseHelper.getBookDetails(id);
+                System.out.println(book);
+                res.put("books", book);
             }
         }
         try (PrintWriter out = response.getWriter()) {

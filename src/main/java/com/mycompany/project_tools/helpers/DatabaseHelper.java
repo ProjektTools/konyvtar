@@ -132,10 +132,10 @@ public class DatabaseHelper {
         }
         return ret;
     }
-    
-    public static JSONArray getCategories() throws ClassNotFoundException{
+
+    public static JSONArray getCategories() throws ClassNotFoundException {
         JSONArray res = new JSONArray();
-        
+
         Connection postgreConnection = null;
         PreparedStatement postgreStmt = null;
         ResultSet rs = null;
@@ -143,7 +143,7 @@ public class DatabaseHelper {
             postgreConnection = getConnection();
             String postgreSql = "SELECT id, name FROM categories;";
             postgreStmt = postgreConnection.prepareStatement(postgreSql);
-            
+
             rs = postgreStmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -173,9 +173,110 @@ public class DatabaseHelper {
         return res;
     }
 
+    public static JSONArray getBooks() throws ClassNotFoundException {
+        JSONArray res = new JSONArray();
+
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            String postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books;";
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                String description = rs.getString("description");
+                int year = rs.getInt("year");
+                int count = rs.getInt("count");
+                String publisher = rs.getString("publisher");
+                int category_id = rs.getInt("category_id");
+
+                JSONObject sor = new JSONObject();
+                sor.put("id", id);
+                sor.put("title", title);
+                sor.put("author", author);
+                sor.put("description", description);
+                sor.put("year", year);
+                sor.put("count", count);
+                sor.put("publisher", publisher);
+                sor.put("category_id", category_id);
+                System.out.println(sor);
+                res.put(sor);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            res.put("A szerver nem elérhető.");
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) throws SQLException {
         //insertUser("ildi", "ildi@ildi.il", "ildi");
         insertUser("admin", "admin@admin.com", "admin");
     }
-    
+
+    public static JSONArray getBookDetails(String id) throws ClassNotFoundException {
+        JSONArray res = new JSONArray();
+        System.out.println("keressük a megadott könyvet");
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            String postgreSql = "SELECT * from public.books where id=" + id + ";";
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                String description = rs.getString("description");
+                int year = rs.getInt("year");
+                int count = rs.getInt("count");
+                String publisher = rs.getString("publisher");
+                int category_id = rs.getInt("category_id");
+
+                JSONObject sor = new JSONObject();
+                sor.put("title", title);
+                sor.put("author", author);
+                sor.put("description", description);
+                sor.put("year", year);
+                sor.put("count", count);
+                sor.put("publisher", publisher);
+                sor.put("category_id", category_id);
+                System.out.println(sor);
+                res.put(sor);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            res.put("A szerver nem elérhető.");
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return res;
+    }
 }

@@ -16,12 +16,11 @@ public class ApplicationConfigurationProvider extends HttpConfigurationProvider 
 
     @Override
     public Configuration getConfiguration(ServletContext context) {
-        System.out.println("iiiitt");
         return ConfigurationBuilder.begin()
                 //
                 .addRule()
                 .when(Path.matches("/books/{id}"))
-                 .perform(Redirect.temporary(context.getContextPath() + "/books.jsp"))                
+                 .perform(Forward.to("/book.jsp"))           
                 .addRule()
                 .when(Path.matches("/index"))
                 .perform(Forward.to("/index.jsp"))                

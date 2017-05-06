@@ -1,6 +1,6 @@
 <%-- 
-    Document   : nav.jsp
-    Created on : 2017.04.16., 19:13:44
+    Document   : navbook
+    Created on : 2017.05.06., 13:37:32
     Author     : Ildi
 --%>
 
@@ -18,15 +18,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- LIBS -->
-        <script src="./lib/jquery/jquery.min.js"></script>
-        <script src="./lib/jquery/jquery-ui.min.js"></script>
-        <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../lib/jquery/jquery.min.js"></script>
+        <script src="../lib/jquery/jquery-ui.min.js"></script>
+        <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet">
         <!-- /LIBS -->
 
         <!-- SITE -->        
-        <link rel="stylesheet" href="./css/project.css">
-        <script src="./js/project.js"></script>
+        <link rel="stylesheet" href="../css/project.css"> 
+        <script src="../js/findbook.js"></script>
         <!-- /SITE -->
     </head>
     <body>
@@ -39,20 +39,20 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                     <ul class="nav navbar-nav">
-                        <li><a href="./index">Főoldal</a></li>
-                        <li><a href="./info">Kölcsönzésről</a></li>
-                        <li><a href="./books">Könyvek listázása</a></li>
+                        <li><a href="../index">Főoldal</a></li>
+                        <li><a href="../info">Kölcsönzésről</a></li>
+                        <li><a href="../books">Könyvek listázása</a></li>
                          <% if (username != null) { %>                        
-                        <li><a href="./borrows">Kölcsönzések kezelése</a></li>
+                        <li><a href="../borrows">Kölcsönzések kezelése</a></li>
                         <% if (username.equals("admin")) { %>                        
-                        <li><a href="./newbook">Új könyv felvétele</a></li>  
+                        <li><a href="../newbook">Új könyv felvétele</a></li>  
                         <% } %>                       
                         <% } %>
                       </ul>                         
                         <ul class="nav navbar-nav navbar-right">
                             <% if (username == null) { %>
-                            <li><a href="./login">Bejelentkezés</a></li>
-                            <li><a href="./regist">Regisztráció</a></li>
+                            <li><a href="../login">Bejelentkezés</a></li>
+                            <li><a href="../regist">Regisztráció</a></li>
                             <% } else { %>
                             <li><form action="LogoutServlet"><button type="submit" class="btn btn-primary">Kijelentkezés</button></form></li>
                             <% } %>
