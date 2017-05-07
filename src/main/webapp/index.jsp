@@ -4,6 +4,7 @@
     Author     : Ildi
 --%>
 
+<%@page import="com.mycompany.project_tools.helpers.DatabaseHelper"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -20,7 +21,10 @@
         <p>Látogatóként böngészhetsz a könyvek között akár szerzőnként, kategóriánként szűkítve a találatok listáját, ha pedig regisztrálsz akkor lehetőséged
             van kölcsönözni és utólag értékelni a könyveket. Ezek alapján létrejövő rangsor a könyvek között:
             <p><b>A legolvasottabb könyv: </b>
-                #KÖNYVCÍME
+                <% int bookid = DatabaseHelper.getMaxRead();
+                    String title = DatabaseHelper.getTitle(bookid);
+                    out.println("<a href=\"./books/book.jsp?id="+bookid+"\">"+title+"</a>");
+                %>
             <p><b>A legjobb értékeléssel rendelkező könyv: </b>
                 #KÖNYVCÍME
             <p><b>A legrosszabb értékeléssel rendelkező könyv: </b>

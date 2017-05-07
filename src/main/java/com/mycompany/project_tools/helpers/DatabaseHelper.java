@@ -279,4 +279,215 @@ public class DatabaseHelper {
         }
         return res;
     }
+
+    public static boolean olvasta(String username, String id) throws ClassNotFoundException {
+        boolean result = false;
+
+        System.out.println("megnézzük hogy olvasta-e");
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            String postgreSql = "SELECT * from public.read where bookid=" + id + " and username='" + username + "';";
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+            int i = 0;
+            while (rs.next()) {
+                i++;
+            }
+            if (i == 0) {
+                result = false;
+            } else {
+                result = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    public static void insertToRead(String id, String username) throws ClassNotFoundException {
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            String postgreSql = "insert into public.read(username, bookid) values('" + username + "'," + id + ");";
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+
+            System.out.println("adatok beszúrva");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public static int getMaxRead() throws ClassNotFoundException {
+        int id = 0;
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            String postgreSql = "SELECT bookid FROM public.read group by bookid order by count(bookid) desc limit 1;";
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("bookid");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        System.out.println("legolvasottabb: " + id);
+        return id;
+    }
+
+    public static String getTitle(int id) throws ClassNotFoundException {
+        String title = "";
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            String postgreSql = "SELECT title from public.books where id=" + id + ";";
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+            while (rs.next()) {
+                title = rs.getString("title");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        System.out.println("legolvasottabb könyv címe: " + title);
+        return title;
+    }
+
+    public static JSONArray search(String title, String author, int category_id) throws ClassNotFoundException {
+        System.out.println("Könyveket keresünk feltételek szerint");
+        String postgreSql = "";
+        //cím szerint
+        if (author == "" && category_id == 0 && title != "") {
+            postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where title LIKE '%" + title + "%';";
+        }
+        //szerző szerint
+        if (author != "" && category_id == 0 && title == "") {
+            postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where author LIKE '%" + author + "%';";
+        }
+        //kategória szerint
+        if (author == "" && category_id != 0 && title == "") {
+            postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where category_id=" + category_id + ";";
+        }
+        //cím és kategória
+        if (author == "" && category_id != 0 && title != "") {
+            postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where title LIKE '%" + title + "%' and category_id=" + category_id + ";";
+        }
+        //cím és szerző
+        if (author != "" && category_id == 0 && title != "") {
+            postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where title LIKE '%" + title + "%' and author LIKE '%" + author + "%';";
+        }
+        //szerző és kategória
+        if (author != "" && category_id != 0 && title == "") {
+            postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where author LIKE '%" + author + "%'and category_id=" + category_id + ";";
+        }
+        //cím szerző és kategória
+        if (author != "" && category_id != 0 && title != "") {
+            postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where title LIKE '%" + title + "%' and  author LIKE '%" + author + "%'and category_id=" + category_id + ";";
+        }
+        System.out.println(postgreSql);
+        JSONArray res = new JSONArray();
+
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+            
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title2 = rs.getString("title");
+                String author2 = rs.getString("author");
+                String description = rs.getString("description");
+                int year = rs.getInt("year");
+                int count = rs.getInt("count");
+                String publisher = rs.getString("publisher");
+                int category_id2 = rs.getInt("category_id");
+                JSONObject sor = new JSONObject();
+                sor.put("id", id);
+                sor.put("title", title2);
+                sor.put("author", author2);
+                sor.put("description", description);
+                sor.put("year", year);
+                sor.put("count", count);
+                sor.put("publisher", publisher);
+                sor.put("category_id", category_id2);
+                res.put(sor);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return res;
+    }
 }

@@ -6,14 +6,7 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    //allow access only if session exists
-    String username = null;
-    Integer secLvl = null;
-    if (session != null) {
-        username = (String) session.getAttribute("username");
-    }
-%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,16 +14,7 @@
         <title>Kölcsönzések</title>
     </head>
     <body>
-        <% if (username == null) { %>
         <%@include file="nav.jsp" %>
-        <% } else { %>
-        <% if (username.equals("admin")) { %>
-        <%@include file="nav_admin.jsp" %>
-        <% } else { %>
-        <%@include file="nav_user.jsp" %>
-        <% } %>
-        <% }%>
-
     <legend>Kölcsönzéseim</legend>
 
     <table class="table-striped table-hover">
@@ -48,9 +32,15 @@
                 <td>Mazsola és Tádé</td>
                 <td>2017.05.17.</td>
                 <td>
+                    <% if (username.equals("admin")) {%>
+                    <a href="#" class="btn btn-default btn-sm">Kölcsönzés jóváhagyása</a>
+                    <a href="#" class="btn btn-default btn-sm">Kölcsönzés törlése</a>    
+                    <a href="#" class="btn btn-default btn-sm">Hosszabbítás jóváhagyása</a>  
+                    <% } else {%>
                     <a href="#" class="btn btn-default btn-sm">Visszahoztam</a>
                     <a href="#" class="btn btn-default btn-sm">Értékelés</a>    
                     <a href="#" class="btn btn-default btn-sm">Hosszabbítanám</a>  
+                    <% }%>
                 </td>
             </tr>
             <tr>
@@ -58,9 +48,15 @@
                 <td>Semmi</td>
                 <td>2017.05.01.</td>
                 <td>
+                    <% if (username.equals("admin")) {%>
+                    <a href="#" class="btn btn-default btn-sm">Kölcsönzés jóváhagyása</a>
+                    <a href="#" class="btn btn-default btn-sm">Kölcsönzés törlése</a>    
+                    <a href="#" class="btn btn-default btn-sm">Hosszabbítás jóváhagyása</a>  
+                    <% } else {%>
                     <a href="#" class="btn btn-default btn-sm">Visszahoztam</a>
                     <a href="#" class="btn btn-default btn-sm">Értékelés</a>    
                     <a href="#" class="btn btn-default btn-sm">Hosszabbítanám</a>  
+                    <% }%>
                 </td>
             </tr>
             <tr>
@@ -68,9 +64,15 @@
                 <td>Tíz kicsi néger</td>
                 <td>2017.04.30.</td>
                 <td>
+                    <% if (username.equals("admin")) {%>
+                    <a href="#" class="btn btn-default btn-sm">Kölcsönzés jóváhagyása</a>
+                    <a href="#" class="btn btn-default btn-sm">Kölcsönzés törlése</a>    
+                    <a href="#" class="btn btn-default btn-sm">Hosszabbítás jóváhagyása</a>  
+                    <% } else {%>
                     <a href="#" class="btn btn-default btn-sm">Visszahoztam</a>
                     <a href="#" class="btn btn-default btn-sm">Értékelés</a>    
                     <a href="#" class="btn btn-default btn-sm">Hosszabbítanám</a>  
+                    <% }%> 
                 </td>
             </tr>
         </tbody>

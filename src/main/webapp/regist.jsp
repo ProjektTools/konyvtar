@@ -13,27 +13,27 @@
     </head>
     <body>
         <%@include file="nav.jsp" %>
-        <form action="RegistServlet" method="POST" id="login_form" class="user_form" class="form-horizontal">
+        <form method="POST" action="RegistServlet" id="regist_form" class="user_form" class="form-horizontal">
             <fieldset>
                 <legend>Regisztráció</legend>
                 <div class="form-group">
                     <label for="username_input" class="col-lg-2 control-label nagyobb">Felhasználónév</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control terkozos" id="username_input" placeholder="Felhasználónév">
+                        <input type="text" class="form-control terkozos" id="username_input" name="username_input" placeholder="Felhasználónév">
                     </div>
                 </div>
                 <p>
                 <div class="form-group">
-                    <label for="inputEmail" class="col-lg-2 control-label nagyobb">Email</label>
+                    <label for="email_input" class="col-lg-2 control-label nagyobb">Email</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control terkozos" id="inputEmail" placeholder="Email">
+                        <input type="text" class="form-control terkozos" id="email_input" name="email_input" placeholder="Email">
                     </div>
                 </div>
                 <p>
                 <div class="form-group">
                     <label for="password_input" class="col-lg-2 control-label nagyobb">Jelszó</label>
                     <div class="col-lg-10">
-                        <input type="password" class="form-control terkozos" id="password_input" placeholder="Jelszó">
+                        <input type="password" class="form-control terkozos" id="password_input" name="password_input" placeholder="Jelszó">
                     </div>
                 </div>
                 <div class="form-group">

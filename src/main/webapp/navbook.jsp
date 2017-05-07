@@ -54,7 +54,7 @@
                             <li><a href="../login">Bejelentkezés</a></li>
                             <li><a href="../regist">Regisztráció</a></li>
                             <% } else { %>
-                            <li><form action="LogoutServlet"><button type="submit" class="btn btn-primary">Kijelentkezés</button></form></li>
+                            <li><form action="../LogoutServlet"><button type="submit" class="btn btn-primary">Kijelentkezés</button></form></li>
                             <% } %>
                         </ul>
                 </div>

@@ -25,10 +25,12 @@
 
         </select>
     </div>
-    <div align="center"><button type="submit" class="btn btn-primary">Keresés</button></div>
+    <div align="center"><button type="submit" id="searchbutton" class="btn btn-primary">Keresés</button></div>
 
     <hr>
-
+    <div id="talalatok">
+        
+    </div>
     <div class="row">
         <div id="kategorialista">
 

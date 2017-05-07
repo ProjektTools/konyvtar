@@ -48,6 +48,7 @@ public class AjaxServlet extends HttpServlet {
         String cmd = request.getParameter("cmd");
         String cmd2 = request.getParameter("cmd2");
         String id = request.getParameter("id");
+        String username = request.getParameter("username");
 
         System.out.println("PARAMÉTEREK" + cmd + cmd2 + id);
         if (cmd != null) {
@@ -72,6 +73,18 @@ public class AjaxServlet extends HttpServlet {
                 book = DatabaseHelper.getBookDetails(id);
                 System.out.println(book);
                 res.put("books", book);
+            }
+            if(cmd.equals("insertToRead")){
+                System.out.println("Új olvasás beszúrása");
+                DatabaseHelper.insertToRead(id, username);
+            }
+            if(cmd.equals("search")){
+                String title = request.getParameter("title");
+                String author = request.getParameter("author");
+                int category_id=Integer.parseInt(request.getParameter("category_id"));
+                JSONArray sbooks;
+                sbooks = DatabaseHelper.search(title, author, category_id);
+                res.put("sbooks", sbooks);
             }
         }
         try (PrintWriter out = response.getWriter()) {
