@@ -11,9 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html" charset=UTF-8">
         <title>Új könyv</title>
+        <%@include file="nav.jsp" %>
+        <script src="./js/new.js"></script>
     </head>
     <body>
-        <%@include file="nav.jsp" %>
+
         <form action="NewBookServlet" method="POST" id="login_form" class="user_form" class="form-horizontal" accept-charset="UTF-8">
             <fieldset>
                 <legend>Új könyv felvétele</legend>
@@ -47,7 +49,7 @@
                 <div class="form-group">
                     <label for="category_input" class="col-lg-2 control-label nagyobb">Kategória</label>
                     <div class="col-lg-10">
-                            <select class="form-control terkozos" id="searchcategory" name="category_input"></select>
+                        <select class="form-control terkozos" id="searchcategory" name="category_input"></select>
                     </div>
                 </div>
                 <div class="form-group">

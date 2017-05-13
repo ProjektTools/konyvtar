@@ -26,7 +26,6 @@
 
         <!-- SITE -->        
         <link rel="stylesheet" href="./css/project.css">
-        <script src="./js/project.js"></script>
         <!-- /SITE -->
     </head>
     <body>

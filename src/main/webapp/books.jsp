@@ -9,10 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Könyvek listázása</title>
+        <title>Könyvek listázása</title>       
+        
+        <%@include file="nav.jsp" %>
+        <script src="./js/booklist.js"></script>
     </head>
     <body>
-    <%@include file="nav.jsp" %>
     <legend>Keresés</legend>
     <div class="col-lg-3">
         <input type="text" class="form-control terkozos" id="searchtitle" placeholder="Cím">

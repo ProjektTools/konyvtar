@@ -48,7 +48,7 @@ public class AjaxServlet extends HttpServlet {
         String id = request.getParameter("id");
         String username = request.getParameter("username");
 
-        System.out.println("PARAMÉTEREK" + cmd + cmd2 + id);
+        System.out.println("PARAMÉTEREK" + cmd + id);
         if (cmd != null) {
             if (cmd.equals("getCategories")) {
                 System.out.println("Kategóriakeresés");
@@ -93,6 +93,17 @@ public class AjaxServlet extends HttpServlet {
                 JSONArray borrows;
                 borrows = DatabaseHelper.getBorrows(username);
                 res.put("borrows", borrows);
+            }
+            if(cmd.equals("getCategoryDetails")){
+                System.out.println("Kategóriához tartozó könyvek betöltése");
+                String category_id=request.getParameter("category_id");
+                JSONArray sbooks;
+                sbooks = DatabaseHelper.search(category_id);
+                res.put("sbooks", sbooks);
+            }
+            if(cmd.equals("deleteBorrow")){
+                System.out.println("Kölcsönzést törlünk");
+                DatabaseHelper.deleteBorrow(id);
             }
         }
         try (PrintWriter out = response.getWriter()) {

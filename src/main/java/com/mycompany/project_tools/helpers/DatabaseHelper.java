@@ -139,7 +139,7 @@ public class DatabaseHelper {
         ResultSet rs = null;
         try {
             postgreConnection = getConnection();
-            String postgreSql = "SELECT id, name FROM categories;";
+            String postgreSql = "SELECT id, name FROM categories ORDER BY id;";
             postgreStmt = postgreConnection.prepareStatement(postgreSql);
 
             rs = postgreStmt.executeQuery();
@@ -560,8 +560,8 @@ public class DatabaseHelper {
         return id + 1;
     }
 
-    public static String konvert(String input){
-        String result="";
+    public static String konvert(String input) {
+        String result = "";
         try {
             byte ptext[] = input.getBytes("ISO_8859_1");
             result = new String(ptext, "UTF-8");
@@ -570,7 +570,7 @@ public class DatabaseHelper {
         }
         return result;
     }
-    
+
     public static void insertBook(String title, String author, String publisher, String desc, String category, String year) throws SQLException {
         int id;
         System.out.println("Könyvet szúrunk be..");
@@ -585,13 +585,13 @@ public class DatabaseHelper {
                 title = konvert(title);
                 author = konvert(author);
                 desc = konvert(desc);
-                publisher=konvert(publisher);
-                
+                publisher = konvert(publisher);
+
                 conn = getConnection();
                 String sql = "INSERT INTO public.books(\n"
                         + "	id, title, author, description, year, count, publisher, category_id)\n"
-                        + "	VALUES ("+id+",'"+title+"','"+author+"','"+desc+"',"+evszam+", 5, '"+publisher+"',"+kategoria+");";
-            
+                        + "	VALUES (" + id + ",'" + title + "','" + author + "','" + desc + "'," + evszam + ", 5, '" + publisher + "'," + kategoria + ");";
+
                 stmt = conn.prepareStatement(sql);
                 stmt.execute();
             } catch (Exception ex) {
@@ -611,27 +611,29 @@ public class DatabaseHelper {
         }
     }
 
-    public static void insertToBorrow(String id, String username){
+    public static void insertToBorrow(String id, String username) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int id2 = Integer.parseInt(id);
-        
-        String kezdo =LocalDateTime.now().getYear()+"-"+LocalDateTime.now().getMonthValue()+"-"+LocalDateTime.now().getDayOfMonth();
-        Date d_kezdo =Date.valueOf(kezdo);
-        String zaro = LocalDateTime.now().getYear()+"-"+(LocalDateTime.now().getMonthValue()+1)+"-"+LocalDateTime.now().getDayOfMonth();
+
+        String kezdo = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+        Date d_kezdo = Date.valueOf(kezdo);
+        String zaro = LocalDateTime.now().getYear() + "-" + (LocalDateTime.now().getMonthValue() + 1) + "-" + LocalDateTime.now().getDayOfMonth();
         Date d_zaro = Date.valueOf(zaro);
         try {
             conn = getConnection();
-            String sql = "INSERT INTO public.borrows(\n" +
-"	username, bookid, borrowdate, expiredate, renew, status)\n" +
-"	VALUES (?, ?, ?, ?, ?, ?);";
-            stmt = conn.prepareStatement(sql);            
+            int kolcs_id = getMaxiKolcs();
+            String sql = "INSERT INTO public.borrows(\n"
+                    + "	username, bookid, borrowdate, expiredate, renew, status, id)\n"
+                    + "	VALUES (?, ?, ?, ?, ?, ?, ?);";
+            stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
             stmt.setInt(2, id2);
             stmt.setDate(3, d_kezdo);
             stmt.setDate(4, d_zaro);
             stmt.setInt(5, 0);
-            stmt.setString(6, "'uj kolcsonzes'");
+            stmt.setString(6, "uj kolcsonzes");
+            stmt.setInt(7, kolcs_id);
             stmt.execute();
         } catch (Exception ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
@@ -652,16 +654,14 @@ public class DatabaseHelper {
     public static JSONArray getBorrows(String username) {
         String postgreSql = "";
         //admin -- minden kölcsönzés
-        if(username.equals("admin")){
-            postgreSql = "SELECT username, bookid, borrowdate, expiredate, renew, status FROM public.borrows;";
-        }
-        //nem admin -- saját kölcsönzések
-        else{
-            postgreSql = "SELECT username, bookid, borrowdate, expiredate, renew, status FROM public.borrows where username='"+username+"';";
+        if (username.equals("admin")) {
+            postgreSql = "SELECT username, bookid, borrowdate, expiredate, renew, status, id FROM public.borrows;";
+        } //nem admin -- saját kölcsönzések
+        else {
+            postgreSql = "SELECT username, bookid, borrowdate, expiredate, renew, status, id FROM public.borrows where username='" + username + "';";
         }
         System.out.println(postgreSql);
         JSONArray res = new JSONArray();
-
         Connection postgreConnection = null;
         PreparedStatement postgreStmt = null;
         ResultSet rs = null;
@@ -679,6 +679,7 @@ public class DatabaseHelper {
                 int renew = rs.getInt("renew");
                 String status = rs.getString("status");
                 String title = getTitle(bookid);
+                int id = rs.getInt("id");
                 JSONObject sor = new JSONObject();
                 sor.put("bookid", bookid);
                 sor.put("title", title);
@@ -687,6 +688,7 @@ public class DatabaseHelper {
                 sor.put("expiredate", expiredate);
                 sor.put("renew", renew);
                 sor.put("status", status);
+                sor.put("kolcs_id", id);
                 res.put(sor);
             }
         } catch (Exception ex) {
@@ -705,4 +707,148 @@ public class DatabaseHelper {
         }
         return res;
     }
+
+    public static JSONArray search(String category_id) {
+        System.out.println("Könyveket keresünk feltételek szerint");
+        String postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where category_id=" + category_id + ";";
+
+        JSONArray res = new JSONArray();
+
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title2 = rs.getString("title");
+                String author2 = rs.getString("author");
+                String description = rs.getString("description");
+                int year = rs.getInt("year");
+                int count = rs.getInt("count");
+                String publisher = rs.getString("publisher");
+                int category_id2 = rs.getInt("category_id");
+                String category_name = getCategoryName(category_id2);
+                JSONObject sor = new JSONObject();
+                sor.put("category_name", category_name);
+                sor.put("id", id);
+                sor.put("title", title2);
+                sor.put("author", author2);
+                sor.put("description", description);
+                sor.put("year", year);
+                sor.put("count", count);
+                sor.put("publisher", publisher);
+                sor.put("category_id", category_id2);
+                res.put(sor);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return res;
+    }
+
+    private static String getCategoryName(int id) {
+        String title = "";
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            String postgreSql = "SELECT name from public.categories where id=" + id + ";";
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+            while (rs.next()) {
+                title = rs.getString("name");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return title;
+    }
+
+    private static int getMaxiKolcs() {
+        int id = 0;
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            String postgreSql = "SELECT count(id) FROM public.borrows;";
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("count");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return id + 1;
+    }
+
+    public static void deleteBorrow(String id) {
+        Connection postgreConnection = null;
+        PreparedStatement postgreStmt = null;
+        ResultSet rs = null;
+        try {
+            postgreConnection = getConnection();
+            String postgreSql = "Delete FROM public.borrows where id="+id+";";
+            postgreStmt = postgreConnection.prepareStatement(postgreSql);
+
+            rs = postgreStmt.executeQuery();
+        } catch (Exception ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (postgreConnection != null) {
+                    postgreConnection.close();
+                }
+                if (postgreStmt != null) {
+                    postgreStmt.close();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    
 }

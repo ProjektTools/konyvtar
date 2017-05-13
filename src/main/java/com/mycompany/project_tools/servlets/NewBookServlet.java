@@ -53,7 +53,7 @@ public class NewBookServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(RegistServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect("main.jsp");
+        response.sendRedirect("books.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

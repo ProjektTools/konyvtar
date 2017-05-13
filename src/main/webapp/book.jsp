@@ -21,15 +21,35 @@
         <% if (username != null) {%>
         <% if (!DatabaseHelper.kolcsonzi(username, request.getParameter("id"))) {%>
         <button id="kolcsonzom" class="btn btn-info">Kölcsönözném</button>
-        <% }  else {%>
+        <% } else {%>
         <a href="#" class="btn btn-info disabled">Jelenleg kölcsönzöd ezt a könyvet.</a>
         <% } %>
         <% if (!DatabaseHelper.olvasta(username, request.getParameter("id"))) {%>
         <button id="olvastam" class="btn btn-success">Olvastam</button>
         <% } else {%>
         <a href="#" class="btn btn-success disabled"> Már olvasottnak jelölted ezt a könyvet.</a>
+        <form class="form-horizontal" method=POST>
+            <div class="form-group">
+                <label class="col-lg-2 control-label nagyobb">Pontszám</label>
+                <div class="col-lg-10">
+                    <div class="radio">
+                        <div><label><input id="point" name="point" value="1"  type="radio">★</label></div>
+                        <div><label><input id="point" name="point" value="2"  type="radio">★★</label></div>
+                        <div><label><input id="point" name="point" value="3"  type="radio">★★★</label></div>
+                        <div><label><input id="point" name="point" value="4"  type="radio">★★★★</label></div>
+                        <div><label><input id="point" name="point" value="5"  type="radio">★★★★★</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="reset" class="btn btn-default">Mégse</button>
+                    <button type="submit" class="btn btn-primary">Értékelés</button>
+                </div>
+            </div>
+        </form>
         <% } %>
-        <% } %>
+        <% }%>
         <%@include file="footer.jsp" %>
     </body>
 </html>

@@ -19,8 +19,11 @@ public class ApplicationConfigurationProvider extends HttpConfigurationProvider 
         return ConfigurationBuilder.begin()
                 //
                 .addRule()
+                .when(Path.matches("category/{id}"))
+                    .perform(Forward.to("/category.jsp"))
+                .addRule()
                 .when(Path.matches("/books/{id}"))
-                 .perform(Forward.to("/book.jsp"))           
+                 .perform(Forward.to("/book.jsp"))                 
                 .addRule()
                 .when(Path.matches("/index"))
                 .perform(Forward.to("/index.jsp"))                
