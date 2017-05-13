@@ -8,8 +8,6 @@ package com.mycompany.project_tools.servlets;
 import com.mycompany.project_tools.helpers.DatabaseHelper;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -78,6 +76,10 @@ public class AjaxServlet extends HttpServlet {
                 System.out.println("Új olvasás beszúrása");
                 DatabaseHelper.insertToRead(id, username);
             }
+            if(cmd.equals("insertToBorrows")){
+                System.out.println("Új kölcsönzés beszúrása"+id+username);
+                DatabaseHelper.insertToBorrow(id, username);
+            }
             if(cmd.equals("search")){
                 String title = request.getParameter("title");
                 String author = request.getParameter("author");
@@ -85,6 +87,12 @@ public class AjaxServlet extends HttpServlet {
                 JSONArray sbooks;
                 sbooks = DatabaseHelper.search(title, author, category_id);
                 res.put("sbooks", sbooks);
+            }
+            if(cmd.equals("getBorrows")){
+                System.out.println("Kölcsönzéseket listázunk");
+                JSONArray borrows;
+                borrows = DatabaseHelper.getBorrows(username);
+                res.put("borrows", borrows);
             }
         }
         try (PrintWriter out = response.getWriter()) {

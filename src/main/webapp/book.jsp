@@ -19,7 +19,11 @@
         <div id="tartalom"></div>
         <div id="username" value="${username}"></div>
         <% if (username != null) {%>
-        <a href="#" class="btn btn-info">Kölcsönözném</a>
+        <% if (!DatabaseHelper.kolcsonzi(username, request.getParameter("id"))) {%>
+        <button id="kolcsonzom" class="btn btn-info">Kölcsönözném</button>
+        <% }  else {%>
+        <a href="#" class="btn btn-info disabled">Jelenleg kölcsönzöd ezt a könyvet.</a>
+        <% } %>
         <% if (!DatabaseHelper.olvasta(username, request.getParameter("id"))) {%>
         <button id="olvastam" class="btn btn-success">Olvastam</button>
         <% } else {%>

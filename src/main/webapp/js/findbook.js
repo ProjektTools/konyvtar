@@ -19,7 +19,32 @@ $(document).ready(function () {
     $('#olvastam').click(function () {
         insertToRead(username, id);
     });
+    
+    $('#kolcsonzom').click(function(){
+        insertToBorrow(username, id);
+    });
 });
+
+function insertToBorrow(username, id){
+    $.ajax({
+        url: "../AjaxServlet",
+        type: "GET",
+        dataType: 'json',
+        data: {
+            cmd: "insertToBorrows",
+            id: id,
+            username: username
+        },
+        async: true,
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            location.reload();
+        },
+        error: function (data, jqXHR, textStatus, errorThrown) {
+            console.log(data);
+        }
+    });
+}
 
 function insertToRead(username, id){
     $.ajax({

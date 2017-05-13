@@ -9,31 +9,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html" charset=UTF-8">
         <title>Új könyv</title>
     </head>
     <body>
         <%@include file="nav.jsp" %>
-        <form action="NewBookServlet" method="POST" id="login_form" class="user_form" class="form-horizontal">
+        <form action="NewBookServlet" method="POST" id="login_form" class="user_form" class="form-horizontal" accept-charset="UTF-8">
             <fieldset>
                 <legend>Új könyv felvétele</legend>
                 <div class="form-group">
-                    <label for="username_input" class="col-lg-2 control-label nagyobb">Cím</label>
+                    <label for="title_input" class="col-lg-2 control-label nagyobb">Cím</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control terkozos" id="title_input" placeholder="Könyv címe">
+                        <input type="text" class="form-control terkozos" id="title_input" name="title_input" placeholder="Könyv címe">
                     </div>
                 </div>
                 <p>
                 <div class="form-group">
-                    <label for="username_input" class="col-lg-2 control-label nagyobb">Szerző</label>
+                    <label for="author_input" class="col-lg-2 control-label nagyobb">Szerző</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control terkozos" id="author_input" placeholder="Könyv szerzője">
+                        <input type="text" class="form-control terkozos" id="author_input" name="author_input" placeholder="Könyv szerzője">
                     </div>
                 </div>
                 <p><div class="form-group">
-                    <label for="username_input" class="col-lg-2 control-label nagyobb">Kiadó</label>
+                    <label for="publisher_input" class="col-lg-2 control-label nagyobb">Kiadó</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control terkozos" id="pulisher_input" placeholder="Könyv kiadója">
+                        <input type="text" class="form-control terkozos" id="publisher_input" name="publisher_input" placeholder="Könyv kiadója">
                     </div>
                 </div>
                 <p>
@@ -45,12 +45,18 @@
                 </div>
                 <p>
                 <div class="form-group">
-                    <label for="year_input" class="col-lg-2 control-label nagyobb">Megjelenés éve</label>
+                    <label for="category_input" class="col-lg-2 control-label nagyobb">Kategória</label>
                     <div class="col-lg-10">
-                        <input type="number" name="quantity" min="1950" max="2017" class="terkozos">
+                            <select class="form-control terkozos" id="searchcategory" name="category_input"></select>
                     </div>
                 </div>
-                
+                <div class="form-group">
+                    <label for="year_input" class="col-lg-2 control-label nagyobb">Megjelenés éve</label>
+                    <div class="col-lg-10">
+                        <input type="number" id="year_input" name="year_input" min="1950" max="2017" class="terkozos">
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <button type="reset" class="btn btn-default">Mégse</button>
