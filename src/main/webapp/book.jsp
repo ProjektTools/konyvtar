@@ -28,7 +28,8 @@
         <button id="olvastam" class="btn btn-success">Olvastam</button>
         <% } else {%>
         <a href="#" class="btn btn-success disabled"> Már olvasottnak jelölted ezt a könyvet.</a>
-        <form class="form-horizontal" method=POST>
+        <% if(!DatabaseHelper.ertekelte(username, request.getParameter("id"))) {%>
+        <form method="POST" class="form-horizontal">
             <div class="form-group">
                 <label class="col-lg-2 control-label nagyobb">Pontszám</label>
                 <div class="col-lg-10">
@@ -44,10 +45,11 @@
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
                     <button type="reset" class="btn btn-default">Mégse</button>
-                    <button type="submit" class="btn btn-primary">Értékelés</button>
+                    <button type="submit" id="ertekelem" class="btn btn-primary">Értékelés</button>
                 </div>
             </div>
         </form>
+        <% } %>
         <% } %>
         <% }%>
         <%@include file="footer.jsp" %>

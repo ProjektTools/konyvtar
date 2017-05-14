@@ -26,9 +26,15 @@
                     out.println("<a href=\"./books/book.jsp?id="+bookid+"\">"+title+"</a>");
                 %>
             <p><b>A legjobb értékeléssel rendelkező könyv: </b>
-                #KÖNYVCÍME
+                <% int bookid_jo = DatabaseHelper.getMaxPoint();
+                    String title_jo = DatabaseHelper.getTitle(bookid_jo);
+                    out.println("<a href=\"./books/book.jsp?id="+bookid_jo+"\">"+title_jo+"</a>");
+                %>
             <p><b>A legrosszabb értékeléssel rendelkező könyv: </b>
-                #KÖNYVCÍME
+                <% int bookid_rossz = DatabaseHelper.getMinPoint();
+                    String title_rossz = DatabaseHelper.getTitle(bookid_rossz);
+                    out.println("<a href=\"./books/book.jsp?id="+bookid_rossz+"\">"+title_rossz+"</a>");
+                %>
             
         <p><b>A csapat tagjai:</b>
         <ul>

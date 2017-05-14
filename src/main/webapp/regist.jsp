@@ -16,6 +16,7 @@
         <form method="POST" action="RegistServlet" id="regist_form" class="user_form" class="form-horizontal">
             <fieldset>
                 <legend>Regisztráció</legend>
+                <p> Az űrlap kitöltése során ne használjon ékezetes karaktert!</p>
                 <div class="form-group">
                     <label for="username_input" class="col-lg-2 control-label nagyobb">Felhasználónév</label>
                     <div class="col-lg-10">

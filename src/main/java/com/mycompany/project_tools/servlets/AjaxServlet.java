@@ -36,7 +36,6 @@ public class AjaxServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-        System.out.println("Servletben vagyunk");
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -48,10 +47,8 @@ public class AjaxServlet extends HttpServlet {
         String id = request.getParameter("id");
         String username = request.getParameter("username");
 
-        System.out.println("PARAMÉTEREK" + cmd + id);
         if (cmd != null) {
             if (cmd.equals("getCategories")) {
-                System.out.println("Kategóriakeresés");
                 JSONArray categories;
                 categories = DatabaseHelper.getCategories();
                 res.put("categories", categories);
@@ -59,26 +56,38 @@ public class AjaxServlet extends HttpServlet {
             }
             if (cmd2 != null) {
                 if (cmd2.equals("getBooks")) {
-                    System.out.println("Könyvkeresés");
                     JSONArray books;
                     books = DatabaseHelper.getBooks();
                     res.put("books", books);
                 }
             }
             if (cmd.equals("getBookDetails")) {
-                System.out.println("Könyv adatok keresése");
                 JSONArray book;
                 book = DatabaseHelper.getBookDetails(id);
-                System.out.println(book);
                 res.put("books", book);
             }
             if(cmd.equals("insertToRead")){
-                System.out.println("Új olvasás beszúrása");
                 DatabaseHelper.insertToRead(id, username);
             }
             if(cmd.equals("insertToBorrows")){
-                System.out.println("Új kölcsönzés beszúrása"+id+username);
                 DatabaseHelper.insertToBorrow(id, username);
+            }
+            if(cmd.equals("insertToRate")){
+                int pontszam = Integer.parseInt(request.getParameter("point"));
+                DatabaseHelper.insertToRate(id, username, pontszam);
+            }
+            if(cmd.equals("renewuser")){
+                int kolcs_id = Integer.parseInt(request.getParameter("kolcs_id"));
+                DatabaseHelper.setStatus(kolcs_id, "hosszabbit");
+            }
+            if(cmd.equals("renewadmin")){
+                int kolcs_id = Integer.parseInt(request.getParameter("kolcs_id"));
+                System.out.println("admin hosszabbit");
+                DatabaseHelper.renew(kolcs_id);                
+            }
+            if(cmd.equals("returnbook")){
+                int kolcs_id = Integer.parseInt(request.getParameter("kolcs_id"));
+                DatabaseHelper.setStatus(kolcs_id, "visszahozott");
             }
             if(cmd.equals("search")){
                 String title = request.getParameter("title");
@@ -89,20 +98,17 @@ public class AjaxServlet extends HttpServlet {
                 res.put("sbooks", sbooks);
             }
             if(cmd.equals("getBorrows")){
-                System.out.println("Kölcsönzéseket listázunk");
                 JSONArray borrows;
                 borrows = DatabaseHelper.getBorrows(username);
                 res.put("borrows", borrows);
             }
             if(cmd.equals("getCategoryDetails")){
-                System.out.println("Kategóriához tartozó könyvek betöltése");
                 String category_id=request.getParameter("category_id");
                 JSONArray sbooks;
                 sbooks = DatabaseHelper.search(category_id);
                 res.put("sbooks", sbooks);
             }
             if(cmd.equals("deleteBorrow")){
-                System.out.println("Kölcsönzést törlünk");
                 DatabaseHelper.deleteBorrow(id);
             }
         }

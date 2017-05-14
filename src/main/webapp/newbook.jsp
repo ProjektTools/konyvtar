@@ -16,7 +16,7 @@
     </head>
     <body>
 
-        <form action="NewBookServlet" method="POST" id="login_form" class="user_form" class="form-horizontal" accept-charset="UTF-8">
+        <form action="NewBookServlet" method="POST" id="book_form" class="user_form" class="form-horizontal" accept-charset="UTF-8">
             <fieldset>
                 <legend>Új könyv felvétele</legend>
                 <div class="form-group">

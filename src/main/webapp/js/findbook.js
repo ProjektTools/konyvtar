@@ -19,13 +19,44 @@ $(document).ready(function () {
     $('#olvastam').click(function () {
         insertToRead(username, id);
     });
-    
-    $('#kolcsonzom').click(function(){
+
+    $('#kolcsonzom').click(function () {
         insertToBorrow(username, id);
+    });
+
+    $('#ertekelem').click(function (e) {
+        e.preventDefault();
+
+        var pontszam = document.querySelector('input[name="point"]:checked').value;
+        if(pontszam !== null ){
+            insertToRate(username, id, pontszam);
+        }
     });
 });
 
-function insertToBorrow(username, id){
+function insertToRate(username, id, pontszam){
+    $.ajax({
+        url: "../AjaxServlet",
+        type: "GET",
+        dataType: 'json',
+        data: {
+            cmd: "insertToRate",
+            id: id,
+            username: username,
+            point: pontszam
+        },
+        async: true,
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            location.reload();
+        },
+        error: function (data, jqXHR, textStatus, errorThrown) {
+            console.log(data);
+        }
+    });
+}
+
+function insertToBorrow(username, id) {
     $.ajax({
         url: "../AjaxServlet",
         type: "GET",
@@ -46,7 +77,7 @@ function insertToBorrow(username, id){
     });
 }
 
-function insertToRead(username, id){
+function insertToRead(username, id) {
     $.ajax({
         url: "../AjaxServlet",
         type: "GET",

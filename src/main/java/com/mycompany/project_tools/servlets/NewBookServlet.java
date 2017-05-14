@@ -43,13 +43,10 @@ public class NewBookServlet extends HttpServlet {
         String author = request.getParameter("author_input");
         String publisher = request.getParameter("publisher_input");
         String desc = request.getParameter("description_input");
-        System.out.println("itt");
         String category = request.getParameter("category_input");
         String year = request.getParameter("year_input");
-        System.out.println("szervlet");
         try {
             DatabaseHelper.insertBook(title, author, publisher, desc, category, year);
-            System.out.println("meghívva");
         } catch (SQLException ex) {
             Logger.getLogger(RegistServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

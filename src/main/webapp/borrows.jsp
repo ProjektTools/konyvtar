@@ -19,7 +19,7 @@
     <body>
         <div id="username" value="${username}"></div>
     <legend>Kölcsönzéseim</legend>
-
+    <p> Egy kölcsönzést 3 x 1 hónap időtartamra lehet meghosszabbírani </p>
     <div id="borrowspace"></div>
     
     <%@include file="footer.jsp" %>
