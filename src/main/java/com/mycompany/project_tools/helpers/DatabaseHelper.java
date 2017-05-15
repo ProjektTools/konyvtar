@@ -225,8 +225,8 @@ public class DatabaseHelper {
     public static void main(String[] args) throws SQLException {
         //insertUser("ildi", "ildi@ildi.il", "ildi");
         //insertUser("admin", "admin@admin.com", "admin");
-        insertUser("ada", "ada@ada.ada", "ada");
-        System.out.println(LocalDateTime.now().getYear()+"-"+LocalDateTime.now().getMonthValue()+"-"+LocalDateTime.now().getDayOfMonth());
+        //insertUser("ada", "ada@ada.ada", "ada");
+        //System.out.println(LocalDateTime.now().getYear()+"-"+LocalDateTime.now().getMonthValue()+"-"+LocalDateTime.now().getDayOfMonth());
         //System.out.println(LocalDateTime.now().getYear()+"-"+(LocalDateTime.now().getMonthValue()+1)+"-"+LocalDateTime.now().getDayOfMonth());
     }
 
