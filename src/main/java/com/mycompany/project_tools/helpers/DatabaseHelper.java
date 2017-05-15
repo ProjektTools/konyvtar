@@ -41,7 +41,7 @@ public class DatabaseHelper {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(input.getBytes());
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < array.length; ++i) {
                 sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
             }
@@ -77,7 +77,7 @@ public class DatabaseHelper {
                     if (stmt != null) {
                         stmt.close();
                     }
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
@@ -109,9 +109,7 @@ public class DatabaseHelper {
                     }
                 }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
@@ -124,7 +122,7 @@ public class DatabaseHelper {
                     if (rs != null) {
                         rs.close();
                     }
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
@@ -217,7 +215,7 @@ public class DatabaseHelper {
                 if (postgreStmt != null) {
                     postgreStmt.close();
                 }
-            } catch (Exception ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -274,7 +272,7 @@ public class DatabaseHelper {
                 if (postgreStmt != null) {
                     postgreStmt.close();
                 }
-            } catch (Exception ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -313,7 +311,7 @@ public class DatabaseHelper {
                 if (postgreStmt != null) {
                     postgreStmt.close();
                 }
-            } catch (Exception ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -352,7 +350,7 @@ public class DatabaseHelper {
                 if (postgreStmt != null) {
                     postgreStmt.close();
                 }
-            } catch (Exception ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -539,7 +537,7 @@ public class DatabaseHelper {
                 if (postgreStmt != null) {
                     postgreStmt.close();
                 }
-            } catch (Exception ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
