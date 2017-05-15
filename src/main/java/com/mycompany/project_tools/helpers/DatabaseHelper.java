@@ -163,7 +163,7 @@ public class DatabaseHelper {
                 if (postgreStmt != null) {
                     postgreStmt.close();
                 }
-            } catch (Exception ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -225,7 +225,8 @@ public class DatabaseHelper {
     public static void main(String[] args) throws SQLException {
         //insertUser("ildi", "ildi@ildi.il", "ildi");
         //insertUser("admin", "admin@admin.com", "admin");
-        //System.out.println(LocalDateTime.now().getYear()+"-"+LocalDateTime.now().getMonthValue()+"-"+LocalDateTime.now().getDayOfMonth());
+        insertUser("ada", "ada@ada.ada", "ada");
+        System.out.println(LocalDateTime.now().getYear()+"-"+LocalDateTime.now().getMonthValue()+"-"+LocalDateTime.now().getDayOfMonth());
         //System.out.println(LocalDateTime.now().getYear()+"-"+(LocalDateTime.now().getMonthValue()+1)+"-"+LocalDateTime.now().getDayOfMonth());
     }
 
