@@ -368,6 +368,7 @@ public class DatabaseHelper {
         try {
             postgreConnection = getConnection();
             String postgreSql = "SELECT * from public.borrows where bookid=" + id + " and username='" + username + "';";
+            //System.out.println(postgreSql);
             postgreStmt = postgreConnection.prepareStatement(postgreSql);
 
             rs = postgreStmt.executeQuery();
@@ -405,7 +406,7 @@ public class DatabaseHelper {
             postgreConnection = getConnection();
             String postgreSql = "insert into public.read(username, bookid) values('" + username + "'," + id + ");";
             postgreStmt = postgreConnection.prepareStatement(postgreSql);
-
+            //System.out.println(postgreSql);
             rs = postgreStmt.executeQuery();
 
             System.out.println("adatok beszúrva");
@@ -433,7 +434,7 @@ public class DatabaseHelper {
             postgreConnection = getConnection();
             String postgreSql = "insert into public.rating(username, bookid, point) values('" + username + "'," + id + "," + point + ");";
             postgreStmt = postgreConnection.prepareStatement(postgreSql);
-
+            //System.out.println(postgreSql);
             rs = postgreStmt.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
@@ -460,7 +461,8 @@ public class DatabaseHelper {
             postgreConnection = getConnection();
             String postgreSql = "SELECT bookid FROM public.read group by bookid order by count(bookid) desc limit 1;";
             postgreStmt = postgreConnection.prepareStatement(postgreSql);
-
+            //System.out.println(postgreSql); 
+            
             rs = postgreStmt.executeQuery();
             while (rs.next()) {
                 id = rs.getInt("bookid");
@@ -523,7 +525,7 @@ public class DatabaseHelper {
             postgreConnection = getConnection();
             String postgreSql = "SELECT avg(point), bookid FROM public.rating group by bookid order by avg(point) limit 1;";
             postgreStmt = postgreConnection.prepareStatement(postgreSql);
-
+            //System.out.println(postgreSql);
             rs = postgreStmt.executeQuery();
             while (rs.next()) {
                 id = rs.getInt("bookid");
@@ -580,31 +582,31 @@ public class DatabaseHelper {
         System.out.println("Könyveket keresünk feltételek szerint");
         String postgreSql = "";
         //cím szerint
-        if (author == "" && category_id == 0 && title != "") {
+        if ("".equals(author) && category_id == 0 && !"".equals(title)) {
             postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where title LIKE '%" + title + "%';";
         }
         //szerző szerint
-        if (author != "" && category_id == 0 && title == "") {
+        if (!"".equals(author) && category_id == 0 && "".equals(title)) {
             postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where author LIKE '%" + author + "%';";
         }
         //kategória szerint
-        if (author == "" && category_id != 0 && title == "") {
+        if ("".equals(author) && category_id != 0 && "".equals(title)) {
             postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where category_id=" + category_id + ";";
         }
         //cím és kategória
-        if (author == "" && category_id != 0 && title != "") {
+        if ("".equals(author) && category_id != 0 && !"".equals(title)) {
             postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where title LIKE '%" + title + "%' and category_id=" + category_id + ";";
         }
         //cím és szerző
-        if (author != "" && category_id == 0 && title != "") {
+        if (!"".equals(author) && category_id == 0 && !"".equals(title)) {
             postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where title LIKE '%" + title + "%' and author LIKE '%" + author + "%';";
         }
         //szerző és kategória
-        if (author != "" && category_id != 0 && title == "") {
+        if (!"".equals(author) && category_id != 0 && "".equals(title)) {
             postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where author LIKE '%" + author + "%'and category_id=" + category_id + ";";
         }
         //cím szerző és kategória
-        if (author != "" && category_id != 0 && title != "") {
+        if (!"".equals(author) && category_id != 0 && !"".equals(title)) {
             postgreSql = "SELECT id, title, author, description, year, count, publisher, category_id FROM public.books where title LIKE '%" + title + "%' and  author LIKE '%" + author + "%'and category_id=" + category_id + ";";
         }
         System.out.println(postgreSql);
