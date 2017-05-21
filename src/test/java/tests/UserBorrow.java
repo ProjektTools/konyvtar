@@ -1,14 +1,16 @@
 package tests;
 
+import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
-public class TestLogin {
- //Maven can't execute this tests yet..
-    /*
+public class UserBorrow {
+   /*
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -22,13 +24,19 @@ public class TestLogin {
   }
 
   @Test
-  public void testLogin() throws Exception {
+  public void testUser() throws Exception {
     driver.get(baseUrl + "/Project_Tools/");
     driver.findElement(By.linkText("Bejelentkezés")).click();
-    driver.findElement(By.id("password_input")).clear();
-    driver.findElement(By.id("password_input")).sendKeys("test");
     driver.findElement(By.id("username_input")).clear();
-    driver.findElement(By.id("username_input")).sendKeys("test");
+    driver.findElement(By.id("username_input")).sendKeys("ildi");
+    driver.findElement(By.id("password_input")).clear();
+    driver.findElement(By.id("password_input")).sendKeys("ildi");
+    driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
+    driver.findElement(By.linkText("Könyvek listázása")).click();
+    driver.findElement(By.xpath("//div[@id='kategorialista']/div[6]/div/div[2]/div/a/h5")).click();
+    driver.findElement(By.id("kolcsonzom")).click();
+    driver.findElement(By.linkText("Kölcsönzések kezelése")).click();
+    driver.findElement(By.xpath("//button[@onclick='returnfunction(2)']")).click();
     driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
   }
 
@@ -74,4 +82,3 @@ public class TestLogin {
     }
   }*/
 }
-

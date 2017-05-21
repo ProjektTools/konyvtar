@@ -1,13 +1,15 @@
 package tests;
 
+import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
-public class TestLogin {
- //Maven can't execute this tests yet..
+public class Admin {
     /*
   private WebDriver driver;
   private String baseUrl;
@@ -22,13 +24,16 @@ public class TestLogin {
   }
 
   @Test
-  public void testLogin() throws Exception {
-    driver.get(baseUrl + "/Project_Tools/");
+  public void testAdmin() throws Exception {
+    driver.get(baseUrl + "/Project_Tools/index.jsp");
     driver.findElement(By.linkText("Bejelentkezés")).click();
-    driver.findElement(By.id("password_input")).clear();
-    driver.findElement(By.id("password_input")).sendKeys("test");
     driver.findElement(By.id("username_input")).clear();
-    driver.findElement(By.id("username_input")).sendKeys("test");
+    driver.findElement(By.id("username_input")).sendKeys("admin");
+    driver.findElement(By.id("password_input")).clear();
+    driver.findElement(By.id("password_input")).sendKeys("admin");
+    driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
+    driver.findElement(By.linkText("Kölcsönzések kezelése")).click();
+    driver.findElement(By.xpath("//button[@onclick='deletefunction(2)']")).click();
     driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
   }
 
@@ -74,4 +79,3 @@ public class TestLogin {
     }
   }*/
 }
-
